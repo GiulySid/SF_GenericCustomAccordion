@@ -1,0 +1,54 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" >
+    
+    <aura:attribute type="String" name="icon" default="action:approval"/>
+    <aura:attribute type="String" name="icon_size" default="xx-small"/>
+    <aura:attribute type="String" name="icon_variant" default=""/>
+    <aura:attribute type="String" name="header" default="HEADER"/>
+    <aura:attribute type="Boolean" name="isContsExpanded"  default="true"/>
+    <aura:attribute name="body" type="Aura.Component[]"/>
+    <aura:attribute name="ArrowOnTheLeft" type="Boolean" default="true"/>
+    
+    
+    <div>
+        <div class="accordion" onclick="{!c.doToggle}">
+            
+            <!-- ACCORDION CON ARROW A SINISTRA-->
+            <aura:if isTrue="{!v.ArrowOnTheLeft}">
+                
+                <div  class="expandCollapse" >
+                    <aura:if isTrue="{!!v.isContsExpanded}">
+                        <lightning:icon aura:id="cHeader" iconName="utility:chevronup" size="x-small" alternativeText="chevrondown" />
+                    </aura:if>
+                    
+                    <aura:if isTrue="{!v.isContsExpanded}">
+                        <lightning:icon aura:id="cHeader" iconName="utility:chevronright" size="x-small" alternativeText="chevronright" />
+                    </aura:if>
+                    
+                    &nbsp; {!v.header} &nbsp; <lightning:icon iconName="{!v.icon}" size="{!v.icon_size}" variant="{!v.icon_variant}"/>
+                    
+                </div>
+                <!-- ACCORDION CON ARROW A DESTRA-->
+                <aura:set attribute="else">
+                    
+                    {!v.header} &nbsp; <lightning:icon aura:id="smiley" iconName="{!v.icon}" size="{!v.icon_size}" variant="{!v.icon_variant}"/>
+                    
+                    <div  class="expandCollapse" style="float:right">
+                        <aura:if isTrue="{!!v.isContsExpanded}">
+                            <lightning:icon aura:id="cHeader" iconName="utility:chevrondown" size="x-small" alternativeText="chevrondown"/>
+                        </aura:if>
+                        
+                        <aura:if isTrue="{!v.isContsExpanded}">
+                            <lightning:icon aura:id="cHeader" iconName="utility:chevronright" size="x-small" alternativeText="chevronright"/> 
+                        </aura:if>
+                    </div>
+                    
+                </aura:set>
+            </aura:if>
+            
+            
+        </div>
+        <div class="container hide" aura:id="contContainer">
+            {!v.body}
+        </div> 
+    </div>
+</aura:component>
